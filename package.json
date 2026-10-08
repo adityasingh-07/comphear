@@ -1,0 +1,15 @@
+{
+  "name": "comphear",
+  "version": "1.0.0",
+  "description": "Compare two people's music listening using Last.fm",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --env-file-if-exists=.env --watch server.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comphear</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Comphear</h1>
+    <p>Compare two people's music taste using Last.fm.</p>
+
+    <form id="compare-form">
+      <label>
+        First username
+        <input name="userA" required>
+      </label>
+      <label>
+        Second username
+        <input name="userB" required>
+      </label>
+      <label>
+        Period
+        <select name="period">
+          <option value="1month">Last month</option>
+          <option value="3month" selected>Last 3 months</option>
+          <option value="6month">Last 6 months</option>
+        </select>
+      </label>
+      <button type="submit">Compare</button>
+    </form>
+
+    <p id="error" hidden></p>
+    <pre id="result" hidden></pre>
+  </main>
+
+  <div id="loading" hidden>
+    <div class="popup">Running the comparison…</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
