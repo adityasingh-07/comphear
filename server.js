@@ -1,5 +1,6 @@
 import express from "express";
 import { getTop, UserNotFoundError } from "./lastfm.js";
+import { compareListening } from "./compare.js";
 
 if (!process.env.LASTFM_API_KEY) {
   console.error("LASTFM_API_KEY is missing. Add it to .env and restart.");
@@ -42,10 +43,17 @@ app.get("/api/compare", async (req, res) => {
         getTop("tracks", userB, period),
       ]);
 
+    const result = compareListening(
+      { artists: artistsA, albums: albumsA, tracks: tracksA },
+      { artists: artistsB, albums: albumsB, tracks: tracksB },
+    );
+
     res.json({
+      userA,
+      userB,
       period,
-      userA: { name: userA, artists: artistsA, albums: albumsA, tracks: tracksA },
-      userB: { name: userB, artists: artistsB, albums: albumsB, tracks: tracksB },
+      ...result,
+      ...(result.score === null && { message: "Not enough listening in this period." }),
     });
   } catch (error) {
     if (error instanceof UserNotFoundError) {
