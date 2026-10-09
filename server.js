@@ -48,12 +48,14 @@ app.get("/api/compare", async (req, res) => {
       { artists: artistsB, albums: albumsB, tracks: tracksB },
     );
 
+    const { inactive, ...rest } = result;
     res.json({
       userA,
       userB,
       period,
-      ...result,
-      ...(result.score === null && { message: "Not enough listening in this period." }),
+      ...rest,
+      // Usernames with no plays in the period (score is null when this isn't empty)
+      inactiveUsers: inactive.map((side) => (side === "a" ? userA : userB)),
     });
   } catch (error) {
     if (error instanceof UserNotFoundError) {

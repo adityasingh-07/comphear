@@ -56,7 +56,13 @@ test("artist names match regardless of upper/lower case", () => {
 test("a user with no listening gets no score", () => {
   const a = listener([]);
   const b = listener([{ name: "Radiohead", playcount: 10 }]);
-  assert.equal(compareListening(a, b).score, null);
+  const result = compareListening(a, b);
+  assert.equal(result.score, null);
+  assert.deepEqual(result.inactive, ["a"]);
+});
+
+test("both users without listening are both reported", () => {
+  assert.deepEqual(compareListening(listener([]), listener([])).inactive, ["a", "b"]);
 });
 
 test("songs only match when the artist matches too", () => {

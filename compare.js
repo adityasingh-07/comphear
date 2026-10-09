@@ -54,10 +54,15 @@ const totalPlays = (list) => list.reduce((sum, item) => sum + item.playcount, 0)
 // a and b are { artists, albums, tracks } from Last.fm
 export function compareListening(a, b) {
   const artists = overlap(a.artists, b.artists, artistKey);
-  const enoughListening = totalPlays(a.artists) > 0 && totalPlays(b.artists) > 0;
+
+  // Which side(s) had no plays in the period: "a", "b", both, or neither
+  const inactive = [];
+  if (totalPlays(a.artists) === 0) inactive.push("a");
+  if (totalPlays(b.artists) === 0) inactive.push("b");
 
   return {
-    score: enoughListening ? Math.round(artists.total * 100) : null,
+    score: inactive.length > 0 ? null : Math.round(artists.total * 100),
+    inactive,
     sharedArtists: artists.shared,
     sharedAlbums: overlap(a.albums, b.albums, itemKey).shared,
     sharedTracks: overlap(a.tracks, b.tracks, itemKey).shared,

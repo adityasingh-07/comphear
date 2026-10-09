@@ -9,30 +9,40 @@
 <body>
   <main>
     <h1>Comphear</h1>
-    <p>Compare two people's music taste using Last.fm.</p>
 
-    <form id="compare-form">
-      <label>
-        First username
-        <input name="userA" required>
-      </label>
-      <label>
-        Second username
-        <input name="userB" required>
-      </label>
-      <label>
-        Period
-        <select name="period">
-          <option value="1month">Last month</option>
-          <option value="3month" selected>Last 3 months</option>
-          <option value="6month">Last 6 months</option>
-        </select>
-      </label>
-      <button type="submit">Compare</button>
-    </form>
+    <section id="form-view">
+      <p>Compare two people's music taste using Last.fm.</p>
 
-    <p id="error" hidden></p>
-    <pre id="result" hidden></pre>
+      <form id="compare-form">
+        <label>
+          First username
+          <input name="userA" required>
+        </label>
+        <label>
+          Second username
+          <input name="userB" required>
+        </label>
+        <label>
+          Period
+          <select name="period">
+            <option value="1month">Last month</option>
+            <option value="3month" selected>Last 3 months</option>
+            <option value="6month">Last 6 months</option>
+          </select>
+        </label>
+        <button type="submit">Compare</button>
+      </form>
+
+      <p id="error" hidden></p>
+    </section>
+
+    <section id="results-view" hidden>
+      <p id="pair"></p>
+      <p id="score"></p>
+      <p id="note"></p>
+      <div id="lists"></div>
+      <button id="back" type="button">Compare again</button>
+    </section>
   </main>
 
   <div id="loading" hidden>
